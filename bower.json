@@ -1,5 +1,5 @@
 {
-  "name": "browser-fps",
+  "name": "fpslib",
   "version": "0.0.0",
   "main": "./js/main.js",
   "ignore": [
