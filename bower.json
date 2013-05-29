@@ -1,10 +1,12 @@
 {
   "name": "fpslib",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "main": "./js/main.js",
   "ignore": [
     "**/.*",
     "node_modules",
     "components"
-  ]
+  ],
+  "dependencies": {},
+  "devDependencies": {}
 }
