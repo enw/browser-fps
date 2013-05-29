@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
             FSID=getID('fpsSpan'),
             TID=getID('thermometer'),
             OID=getID('output'),
+            MSGID=getID('messages'),
             ACSID=getID('animationCounterSpan')
             ;
         
@@ -24,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
                   <p>fps: <span id="'+FSID+'"></span> <div id="'+TID+'"></div></p>\
                   <p id="'+OID+'"></p>\
                   <p>frames: <span id="'+ACSID+'">0</span></p>\
+                  <p>messages: <span id="'+MSGID+'">0</span></p>\
                 </div>\
         ';
 
@@ -37,27 +39,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
         var msgsReceived = 0;
 
-        // fired on start-up
-        window.addEventListener('app-ready', function() {
-                log('app-ready '+i++);
-              });
-
         window.document.addEventListener('heartbeat', function() {
-                output.innerHTML+='messages:'+msgsReceived++;
-              });
+                msgsReceived++;
+            });
 
         // Setup requestAnimationFrame
         var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
             window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
 
         // fields
-        /*
-        var acs=$('#animationCounterSpan'),
-            fpss=$('#fpsSpan'),
-            thermometer=$('#thermometer');
-        */
         var acs=document.getElementById(ACSID),
             fpss=document.getElementById(FSID),
+            msgs=document.getElementById(MSGID),
             thermometer=document.getElementById(TID);
 
         // data
@@ -80,6 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
         function updateUI() {
             acs.innerHTML=ticks;
             fpss.innerHTML=fps;
+            msgs.innerHTML=msgsReceived;
             thermometer.style.width=fps+'px';
           }
         requestAnimationFrame(tick);
