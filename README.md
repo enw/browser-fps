@@ -14,8 +14,14 @@ A short description of the motivation behind the creation and maintenance of the
 
 ## Code Example
 
-      <link rel='stylesheet' href='../css/main.css'></script>
-      <script type='text/javascript' src='../js/main.js'></script>
+   <head>
+     ...
+     <link rel='stylesheet' href='components/fpslib/css/main.css'></script>
+   </head>
+   <body>
+     ...  
+     <script type='text/javascript' src='components/fpslib/js/main.js'></script>
+   </body>
 
 ## License
 
