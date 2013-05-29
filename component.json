@@ -1,0 +1,10 @@
+{
+  "name": "browser-fps",
+  "version": "0.0.0",
+  "main": "./js/main.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ]
+}

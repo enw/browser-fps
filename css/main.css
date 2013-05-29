@@ -1,0 +1,37 @@
+
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+
+#thermometer {
+     background-color:red;
+     width:0px;
+     height:10px;
+}
+
+#metrics {
+     position: fixed;
+     z-index: 31337;
+     top: 32px;
+     right: 4px;
+     width: 100px;
+     background-color: #EEEEFF;
+     padding: 10px;
+     font-size: 10pt;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
