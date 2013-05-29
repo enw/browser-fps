@@ -1,15 +1,33 @@
+/*
+ * fpslib component  
+ */
 document.addEventListener('DOMContentLoaded', function ($) {
+        var UID="FPSLIB",
+            MID=getID('metrics'),
+            FSID=getID('fpsSpan'),
+            TID=getID('thermometer'),
+            OID=getID('output'),
+            ACSID=getID('animationCounterSpan')
+            ;
+
+        //        var uid=Math.floor(Math.random()*16777215).toString(16);
+        function getID(tag) {
+            return tag+'__'+UID;
+        }
+            
+        
+        //        console.log("UID:", UID);
         document.body.innerHTML+='\
-                <div id="metrics">\
-                  <p>fps: <span id="fpsSpan"></span> <div id="thermometer"></div></p>\
-                  <p id="output"></p>\
-                  <p>frames: <span id="animationCounterSpan">0</span></p>\
+                <div id="'+MID+'">                                  \
+                  <p>fps: <span id="'+FSID+'"></span> <div id="'+TID+'"></div></p>\
+                  <p id="'+OID+'"></p>\
+                  <p>frames: <span id="'+ACSID+'">0</span></p>\
                 </div>\
         ';
 
         // listeners, helpers
         var i=0,
-            output=document.getElementById('output');
+            output=document.getElementById(OID);
         function log(s) {
             console.log(s);
             output.innerHTML+=s+"<p>";
@@ -37,9 +55,9 @@ document.addEventListener('DOMContentLoaded', function ($) {
             fpss=$('#fpsSpan'),
             thermometer=$('#thermometer');
         */
-        var acs=document.getElementById('animationCounterSpan'),
-            fpss=document.getElementById('fpsSpan'),
-            thermometer=document.getElementById('thermometer');
+        var acs=document.getElementById(ACSID),
+            fpss=document.getElementById(FSID),
+            thermometer=document.getElementById(TID);
 
         // data
         var ticks = 0,

@@ -1,17 +1,14 @@
+/****
+ ****    "FPSLIB" should be changed to the UID defined in fpslib's main.js
+ ****/
 
-
-/* ==========================================================================
-   Author's custom styles
-   ========================================================================== */
-
-
-#thermometer {
+#thermometer__FPSLIB {
      background-color:red;
      width:0px;
      height:10px;
 }
 
-#metrics {
+#metrics__FPSLIB {
      position: fixed;
      z-index: 31337;
      top: 32px;
