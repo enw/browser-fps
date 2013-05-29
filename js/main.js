@@ -1,24 +1,26 @@
 /*
  * fpslib component  
  */
-document.addEventListener('DOMContentLoaded', function ($) {
-        var UID="FPSLIB",
+document.addEventListener('DOMContentLoaded', function () {
+        'use strict';
+
+        //        var uid=Math.floor(Math.random()*16777215).toString(16);
+        function getID(tag) {
+            return tag+'__'+UID;
+          }
+
+        // vars
+        var UID='FPSLIB',
             MID=getID('metrics'),
             FSID=getID('fpsSpan'),
             TID=getID('thermometer'),
             OID=getID('output'),
             ACSID=getID('animationCounterSpan')
             ;
-
-        //        var uid=Math.floor(Math.random()*16777215).toString(16);
-        function getID(tag) {
-            return tag+'__'+UID;
-        }
-            
         
-        //        console.log("UID:", UID);
+        /*jshint multistr: true */
         document.body.innerHTML+='\
-                <div id="'+MID+'">                                  \
+                <div id="'+MID+'">\
                   <p>fps: <span id="'+FSID+'"></span> <div id="'+TID+'"></div></p>\
                   <p id="'+OID+'"></p>\
                   <p>frames: <span id="'+ACSID+'">0</span></p>\
@@ -30,23 +32,22 @@ document.addEventListener('DOMContentLoaded', function ($) {
             output=document.getElementById(OID);
         function log(s) {
             console.log(s);
-            output.innerHTML+=s+"<p>";
-        };
+            output.innerHTML+=s+'<p>';
+          }
 
         var msgsReceived = 0;
 
         // fired on start-up
-        window.addEventListener("app-ready", function(e) {
+        window.addEventListener('app-ready', function() {
                 log('app-ready '+i++);
-        });
+              });
 
-        window.document.addEventListener("heartbeat", function(e) {
+        window.document.addEventListener('heartbeat', function() {
                 output.innerHTML+='messages:'+msgsReceived++;
-                //                $("#output").html("messages:"+msgsReceived++);
-        });
+              });
 
         // Setup requestAnimationFrame
-        var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||  
+        var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
             window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
 
         // fields
@@ -62,27 +63,27 @@ document.addEventListener('DOMContentLoaded', function ($) {
         // data
         var ticks = 0,
             lastTime = new Date().getTime(),
-            fps="";
-        // just update
-        function tick (n) {
+            fps='';
+        // just update state
+        function tick () {
             updateState();
             //            updateUI();
             requestAnimationFrame(tick);
-        }
+          }
         function updateState() {
             ticks++;
             
             var ts = new Date().getTime();
             fps = Math.round(1000/(ts - lastTime));
             lastTime = ts;
-        }
+          }
         function updateUI() {
             acs.innerHTML=ticks;
             fpss.innerHTML=fps;
             thermometer.style.width=fps+'px';
-        }
+          }
         requestAnimationFrame(tick);
         
         setInterval(updateUI, 250);
-})
+      });
 
