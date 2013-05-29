@@ -9,14 +9,13 @@ A short description of the motivation behind the creation and maintenance of the
 
 ## Installation
 
-Provide code examples and explanations of how to get the project.
-...
+   * install the library
+   $ bower install fpslib
 
 ## Code Example
 
       <link rel='stylesheet' href='../css/main.css'></script>
       <script type='text/javascript' src='../js/main.js'></script>
-
 
 ## License
 
