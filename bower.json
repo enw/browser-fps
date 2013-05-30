@@ -8,7 +8,7 @@
     "components"
   ],
   "dependencies": {
-      "datgui" : "http://dat-gui.googlecode.com/git/build/dat.gui.min.js"
+      "dat.gui.min" : "http://dat-gui.googlecode.com/git/build/dat.gui.min.js"
   },
   "devDependencies": {}
 }
