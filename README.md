@@ -1,11 +1,12 @@
 ## Synopsis
 
-This is a simple FPS display.
-Style if you want!
+This is [1] an html control-panel that displays FPS information using JavaScript and [2] a client-side component for a AppJS application that sends config information (altered by the control-panel) to the nodejs 'server-side' of the application.
 
-## Motivation
+## Requirements
 
-A short description of the motivation behind the creation and maintenance of the project. This should explain **why** the project exists.
+This is intended to be inserted in the client-side of an AppJS application.
+
+For full message-sending behavior, also include nodejs code similar to content in the nodejs folder.
 
 ## Installation
 
@@ -27,7 +28,7 @@ A short description of the motivation behind the creation and maintenance of the
 
 The MIT License (MIT)
 
-Copyright (c) 2013 Elliot Winard <enw AT caveteen.comcom>
+Copyright (c) 2013 Elliot Winard <enw AT caveteen.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

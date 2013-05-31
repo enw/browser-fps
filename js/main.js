@@ -14,22 +14,27 @@ document.addEventListener('DOMContentLoaded', function () {
         'use strict';
 
         var CONFIG = function() {
-            this.msBetweenMessages = 10;
-            this.charsPerMessage = 10;
+            this.msBetweenMessages = 250;
+            this.charsPerMessage = 250;
             this.sendMessages = true;
             //            this.msBetweenScreenUpdates = 250;
             this.fps = 0;
             this.msgsReceived = 0;
+            this.message = "no message rceived...";
         };
 
         var config = new CONFIG();
         var gui = new dat.GUI();
-        gui.add(config, 'msBetweenMessages', 0, 1000);
-        gui.add(config, 'charsPerMessage', 0, 256);
-        gui.add(config, 'sendMessages');
+        var control = gui.addFolder("control (native app only)");
+        control.add(config, 'msBetweenMessages', 0, 1000);
+        control.add(config, 'charsPerMessage', 0, 800);
+        control.add(config, 'sendMessages');
         // gui.add(config, 'msBetweenScreenUpdates');
-        gui.add(config, 'fps').listen();
-        gui.add(config, 'msgsReceived').listen();
+        var metrics = gui.addFolder("metrics");
+        metrics.add(config, 'fps').listen();
+        metrics.add(config, 'msgsReceived').listen();
+        metrics.add(config, 'message').listen();
+        metrics.open();
 
         //        var uid=Math.floor(Math.random()*16777215).toString(16);
         function getID(tag) {
@@ -68,9 +73,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
         var msgsReceived = 0;
 
-        window.document.addEventListener('heartbeat', function() {
+        // messages from server to client
+        window.document.addEventListener('clockevent', function(evt) {
                 config.msgsReceived = msgsReceived++;
-            });
+                //                config.message = evt.data.msg;                
+                config.message = evt.data.msg;
+        });
+
+        // messages from client to server
+        // only works in appJS
+        function send(type, body) {
+            if (window.isAppJS) {
+                window.fromCEF.push({type:type,body:body});
+            };
+        }
 
         // Setup requestAnimationFrame
         var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
@@ -89,7 +105,6 @@ document.addEventListener('DOMContentLoaded', function () {
         // just update state
         function tick () {
             updateState();
-            //            updateUI();
             requestAnimationFrame(tick);
           }
         function updateState() {
@@ -99,16 +114,14 @@ document.addEventListener('DOMContentLoaded', function () {
             config.fps = fps = Math.round(1000/(ts - lastTime));
             lastTime = ts;
           }
-        function updateUI() {
-            /*
-            acs.innerHTML=ticks;
-            fpss.innerHTML=fps;
-            msgs.innerHTML=msgsReceived;
-            thermometer.style.width=fps+'px';
-            */
+
+
+        // send updates of config every N ms
+        var CONFIG_UPDATE_MS = 250;
+        function updateConfig() {
+            send("config", config);
           }
         requestAnimationFrame(tick);
-        
-        setInterval(updateUI, 250);
+        setInterval(updateConfig, CONFIG_UPDATE_MS);
       });
 
