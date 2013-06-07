@@ -8,7 +8,8 @@
     "components"
   ],
   "dependencies": {
-      "dat.gui.min" : "http://dat-gui.googlecode.com/git/build/dat.gui.min.js"
+      "dat.gui.min" : "http://dat-gui.googlecode.com/git/build/dat.gui.min.js",
+      "AppJSCEF2node" : "0.0.1"
   },
   "devDependencies": {}
 }
