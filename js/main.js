@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
             this.fps = 0;
             this.msgsReceived = 0;
             this.message = "no message rceived...";
+            this.messagetype = "no message rceived...";
         };
 
         var config = new CONFIG();
@@ -30,6 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
         metrics.add(config, 'fps').listen();
         metrics.add(config, 'msgsReceived').listen();
         metrics.add(config, 'message').listen();
+        metrics.add(config, 'messagetype').listen();
         metrics.open();
 
         //        var uid=Math.floor(Math.random()*16777215).toString(16);
@@ -56,10 +58,11 @@ document.addEventListener('DOMContentLoaded', function () {
           }
 
         // messages from server to client
-        window.document.addEventListener('clockevent', function(evt) {
+        window.document.addEventListener('node2CEF', function(evt) {
                 config.msgsReceived = msgsReceived++;
                 //                config.message = evt.data.msg;                
-                config.message = evt.data.msg;
+                config.messagetype = evt.data.type;
+                config.message = evt.data.body;
         });
 
         // Setup requestAnimationFrame
