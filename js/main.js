@@ -1,13 +1,10 @@
 
 /*
- * fpslib component  
+ * fpslib component for CEF-NodeJS communication in AppJS
 
  NOTES
- * depends on dat.gui
-
- TODO
- further separate view & model
- create shareobject
+ * depends on AppJSCEF2node for communication between AppJS' Chrome Embedded Framework and NodeJS
+ * depends on dat.gui for UI
 
 */
 document.addEventListener('DOMContentLoaded', function () {
@@ -17,7 +14,6 @@ document.addEventListener('DOMContentLoaded', function () {
             this.msBetweenMessages = 250;
             this.charsPerMessage = 250;
             this.sendMessages = true;
-            //            this.msBetweenScreenUpdates = 250;
             this.fps = 0;
             this.msgsReceived = 0;
             this.message = "no message rceived...";
@@ -48,30 +44,16 @@ document.addEventListener('DOMContentLoaded', function () {
             TID=getID('thermometer'),
             OID=getID('output'),
             MSGID=getID('messages'),
-            ACSID=getID('animationCounterSpan')
-            ;
-        
-        /*jshint multistr: true */
-        /*
-        document.body.innerHTML+='    \
-                <div id="'+MID+'">\
-                  <p>fps: <span id="'+FSID+'"></span> <div id="'+TID+'"></div></p>\
-                  <p id="'+OID+'"></p>\
-                  <p>frames: <span id="'+ACSID+'">0</span></p>\
-                  <p>messages: <span id="'+MSGID+'">0</span></p>\
-                </div>\
-        ';
-        */
+            ACSID=getID('animationCounterSpan'),
+            i=0,
+            output=document.getElementById(OID),
+            msgsReceived = 0;
 
-        // listeners, helpers
-        var i=0,
-            output=document.getElementById(OID);
+        // log helper
         function log(s) {
             console.log(s);
             output.innerHTML+=s+'<p>';
           }
-
-        var msgsReceived = 0;
 
         // messages from server to client
         window.document.addEventListener('clockevent', function(evt) {
@@ -79,14 +61,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 //                config.message = evt.data.msg;                
                 config.message = evt.data.msg;
         });
-
-        // messages from client to server
-        // only works in appJS
-        function send(type, body) {
-            if (window.isAppJS) {
-                window.fromCEF.push({type:type,body:body});
-            };
-        }
 
         // Setup requestAnimationFrame
         var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
@@ -119,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // send updates of config every N ms
         var CONFIG_UPDATE_MS = 250;
         function updateConfig() {
-            send("config", config);
+            send_CEF2node ( { type:'config', body:config } );
           }
         requestAnimationFrame(tick);
         setInterval(updateConfig, CONFIG_UPDATE_MS);
