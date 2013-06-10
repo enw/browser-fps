@@ -11,9 +11,9 @@ document.addEventListener('DOMContentLoaded', function () {
         'use strict';
 
         var CONFIG = function() {
-            this.msBetweenMessages = 250;
-            this.charsPerMessage = 250;
-            this.sendMessages = true;
+            this.serverURL = 'http://www.thevidweb.org/random_point.php';
+            this.msBetweenMessages = 1000;
+            this.sendMessages = false;
             this.fps = 0;
             this.msgsReceived = 0;
             this.message = "no message rceived...";
@@ -24,9 +24,8 @@ document.addEventListener('DOMContentLoaded', function () {
         var gui = new dat.GUI();
         var control = gui.addFolder("control (native app only)");
         control.add(config, 'msBetweenMessages', 0, 1000);
-        control.add(config, 'charsPerMessage', 0, 800);
+        control.add(config, 'serverURL');
         control.add(config, 'sendMessages');
-        // gui.add(config, 'msBetweenScreenUpdates');
         var metrics = gui.addFolder("metrics");
         metrics.add(config, 'fps').listen();
         metrics.add(config, 'msgsReceived').listen();
@@ -94,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
         // send updates of config every N ms
-        var CONFIG_UPDATE_MS = 250;
+        var CONFIG_UPDATE_MS = 1000;
         function updateConfig() {
             send_CEF2node ( { type:'config', body:config } );
           }
